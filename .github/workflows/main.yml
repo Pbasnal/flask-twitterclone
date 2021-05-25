@@ -31,7 +31,14 @@ jobs:
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
       
-      - name: Current directory
+      - name: Terraform init and plan
         run: |
           cd ./infra/appservice/
+          terraform init
           terraform plan
+        
+      - name: Terraform apply
+        run: |
+          cd ./infra/appservice/
+          terraform apply -auto-approve
+          
