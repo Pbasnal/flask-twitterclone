@@ -1,0 +1,122 @@
+{% extends "postsbase.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-3 well">
+        <div class="well">
+            <a class="text-center" href="{{ url_for('user.profile') }}">
+                <img class="img-circle" src="{{ url_for('static', filename='avatars/' + user.id | string) }}"
+                    height="100" alt="Avatar" />
+            </a>
+            {{ user.first_name }} {{user.last_name}}
+        </div>
+        <div class="well">
+            <p><a href="#">Interests</a></p>
+            <p>
+                <span class="label label-default">News</span>
+                <span class="label label-primary">W3Schools</span>
+                <span class="label label-success">Labels</span>
+                <span class="label label-info">Football</span>
+                <span class="label label-warning">Gaming</span>
+                <span class="label label-danger">Friends</span>
+            </p>
+        </div>
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <p><strong>Ey!</strong></p>
+            People are looking at your profile. Find out who.
+        </div>
+        <p><a href="#">Link</a></p>
+        <p><a href="#">Link</a></p>
+        <p><a href="#">Link</a></p>
+    </div>
+    <div class="col-sm-7">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default text-left">
+                    <div class="panel-body">
+                        {% if form.content.errors %}
+                        <ul class=errors>
+                            {% for error in form.content.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <form action="{{ url_for('posts.add_post')}}" method=post>
+                            {{form.csrf_token}}
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    {{ form.content(class_="form-control") | safe }}
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type=submit value=Post class="btn btn-default btn-sm">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for post in paginated_posts.items %}
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="well">
+                    <img class="img-circle" src="{{ url_for('static', filename='avatars/' + user.id | string) }}"
+                    height="65" alt="Avatar" />
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="well row">
+                    <div class="col-sm-11">
+                        {{ post.content }}
+                    </div>
+                    <button class="btn btn-default btn-sm col-sm-1">
+                        <a class="glyphicon glyphicon-trash" href="{{ url_for('posts.delete_post', tweetid=post.id )}}">
+                        </a>
+                    </button>
+                    {{ post.sentiments }}
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+        {# Macro for creating navigation links #}
+        {% macro render_navigation(pagination, endpoint) %}
+        <div class=pagination>
+            {% for page in pagination.iter_pages() %}
+            {% if page %}
+            {% if page != pagination.page %}
+            <a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
+            {% else %}
+            <strong>{{ page }}</strong>
+            {% endif %}
+            {% else %}
+            <span class=ellipsis>…</span>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endmacro %}
+
+        {{ render_navigation(paginated_posts, 'posts.home') }}
+    </div>
+    <div class="col-sm-2 well">
+        <div class="thumbnail">
+            <p>Upcoming Events:</p>
+            <img src="paris.jpg" alt="Paris" width="400" height="300">
+            <p><strong>Paris</strong></p>
+            <p>Fri. 27 November 2015</p>
+            <button class="btn btn-primary">Info</button>
+        </div>
+        <div class="well">
+            <p>ADS</p>
+        </div>
+        <div class="well">
+            <p>ADS</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

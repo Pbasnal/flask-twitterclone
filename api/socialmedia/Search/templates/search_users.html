@@ -1,0 +1,29 @@
+{% extends "search_results.html" %}
+
+{% block results %}
+{% for searched_user in searched_users %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row well">
+            <div class="col-sm-2">
+                <p>{{ searched_user.first_name }}</p>
+                <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">
+            </div>
+            <div class="col-sm-10">
+                {% if userids_being_followed and searched_user.id | string in userids_being_followed %}
+                <form method="POST"
+                    action="{{ url_for('followers.unfollow', userid_to_unfollow=searched_user.id) }}">
+                    <button type="submit" class="btn btn-danger">Unfollow User</button>
+                </form>
+                {% else %}
+                <form method="POST" action="{{ url_for('followers.follow', userid_to_follow=searched_user.id) }}">
+                    <button type="submit" class="btn btn-primary">Follow User</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "postsbase.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-2 well">
+        <div class="well">
+            <a class="text-center" href="{{ url_for('user.profile') }}">
+                <img class="img-circle" src="{{ url_for('static', filename='avatars/' + user.id | string) }}"
+                    height="100" alt="Avatar" />
+            </a>
+            {{ user.first_name }} {{user.last_name}}
+        </div>
+        <div class="well">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ url_for('user.profile_edit') }}">Basic Info</a></li>
+                <li class="list-group-item"><a href="#">Sentiment Report</a></li>
+                <li class="list-group-item"><a href="#">Security</a></li>
+                <li class="list-group-item"><a href="#">Groups</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        {% block editor %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

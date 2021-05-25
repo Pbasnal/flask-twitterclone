@@ -109,6 +109,11 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.vscode/
+locals/
+logs/
+.terraform/
+
 
 # Spyder project settings
 .spyderproject
@@ -127,3 +132,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Static files
+*/static/
+
+.terraform.lock.hcl
+*.tfstate.*
