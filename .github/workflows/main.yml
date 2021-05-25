@@ -25,10 +25,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+
+      # You may pin to the exact commit or the version.
+      # uses: hashicorp/setup-terraform@d22444889af304a44b997011fbabb81ff705a7b4
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
       - name: terraform-plan
         # You may pin to the exact commit or the version.
         # uses: dflook/terraform-plan@ad4aa222aa295ada0d4efe338aeeb0fca8e626ea
         uses: dflook/terraform-plan@v1.4.1
         with:
           # Path to the terraform configuration
-          path: .\infra\appservice\main.tf
+          path: .\infra\appservice\
