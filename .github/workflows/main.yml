@@ -33,12 +33,5 @@ jobs:
       
       - name: Current directory
         run: |
-            echo pwd
-            ls -l
-      - name: terraform-plan
-        # You may pin to the exact commit or the version.
-        # uses: dflook/terraform-plan@ad4aa222aa295ada0d4efe338aeeb0fca8e626ea
-        uses: dflook/terraform-plan@v1.4.1
-        with:
-          # Path to the terraform configuration
-          path: .\infra\appservice\
+          cd infra\appservice
+          terraform plan
