@@ -33,5 +33,5 @@ jobs:
       
       - name: Current directory
         run: |
-          cd infra\appservice
+          cd ./infra/appservice/
           terraform plan
